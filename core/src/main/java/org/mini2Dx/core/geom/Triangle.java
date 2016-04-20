@@ -67,12 +67,7 @@ public class Triangle extends Shape {
 	}
 
 	public void translate(float translateX, float translateY) {
-		float[] vertices = polygon.getVertices();
-		for (int i = 0; i < vertices.length; i += 2) {
-			vertices[i] += translateX;
-			vertices[i + 1] += translateY;
-		}
-		polygon.setVertices(vertices);
+		polygon.translate(translateX, translateY);
 	}
 
 	public void setRotation(float degrees) {
@@ -116,6 +111,31 @@ public class Triangle extends Shape {
 	@Override
 	public boolean intersectsLineSegment(Vector2 pointA, Vector2 pointB) {
 		return polygon.intersectsLineSegment(pointA, pointB);
+	}
+	
+	@Override
+	public boolean intersectsLineSegment(float x1, float y1, float x2, float y2) {
+		return polygon.intersectsLineSegment(x1, y1, x2, y2);
+	}
+	
+	@Override
+	public float getDistanceTo(float x, float y) {
+		return polygon.getDistanceTo(x, y);
+	}
+
+	@Override
+	public float getRotation() {
+		return polygon.getRotation();
+	}
+
+	@Override
+	public void setRotationAround(float centerX, float centerY, float degrees) {
+		polygon.setRotationAround(centerX, centerY, degrees);
+	}
+
+	@Override
+	public void rotateAround(float centerX, float centerY, float degrees) {
+		polygon.rotateAround(centerX, centerY, degrees);
 	}
 	
 	@Override

@@ -107,4 +107,28 @@ public class Intersector {
 	private static float det (float a, float b, float c, float d) {
 		return (a * d) - (b * c);
 	}
+	
+	public static boolean intersects(Rectangle rectangle, Circle circle) {
+		float closestX = circle.getX();
+		float closestY = circle.getY();
+
+		if (circle.getX() < rectangle.getMinX()) {
+			closestX = rectangle.getMinX();
+		} else if (circle.getX() > rectangle.getMaxX()) {
+			closestX = rectangle.getMaxX();
+		}
+
+		if (circle.getY() < rectangle.getMinY()) {
+			closestY = rectangle.getMinY();
+		} else if (circle.getY() > rectangle.getMaxY()) {
+			closestY = rectangle.getMaxY();
+		}
+
+		closestX = closestX - circle.getX();
+		closestX *= closestX;
+		closestY = closestY - circle.getY();
+		closestY *= closestY;
+
+		return closestX + closestY < circle.getRadius() * circle.getRadius();
+	}
 }

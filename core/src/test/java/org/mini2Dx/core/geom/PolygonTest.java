@@ -132,10 +132,10 @@ public class PolygonTest {
 	@Test
 	public void testSet() {
 		Polygon polygon = new Polygon(new Point [] {
-				new Point(0f, 0f),
-				new Point(10f, 0f),
 				new Point(10f, 10f),
-				new Point(0f, 10f)
+				new Point(20f, 10f),
+				new Point(20f, 20f),
+				new Point(10f, 20f)
 			});
 		polygon.set(100f, 100f);
 		
@@ -155,10 +155,10 @@ public class PolygonTest {
 	@Test
 	public void testSetX() {
 		Polygon polygon = new Polygon(new Point [] {
-				new Point(0f, 0f),
 				new Point(10f, 0f),
-				new Point(10f, 10f),
-				new Point(0f, 10f)
+				new Point(20f, 0f),
+				new Point(20f, 10f),
+				new Point(10f, 10f)
 			});
 		polygon.setX(100f);
 		
@@ -181,10 +181,10 @@ public class PolygonTest {
 	@Test
 	public void testSetY() {
 		Polygon polygon = new Polygon(new Point [] {
-				new Point(0f, 0f),
-				new Point(10f, 0f),
+				new Point(0f, 10f),
 				new Point(10f, 10f),
-				new Point(0f, 10f)
+				new Point(10f, 20f),
+				new Point(0f, 20f)
 			});
 		polygon.setY(200f);
 		
