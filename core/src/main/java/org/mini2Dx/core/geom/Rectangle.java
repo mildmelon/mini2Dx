@@ -64,8 +64,8 @@ public class Rectangle extends Shape implements
 		return new Vector2[] {
 				topLeft,
 				topRight,
-				bottomLeft,
-				bottomRight
+				bottomRight,
+				bottomLeft
 			};
 	}
 
@@ -216,7 +216,7 @@ public class Rectangle extends Shape implements
 	 * @return True if this {@link Rectangle} and the {@link Polygon} intersect
 	 */
 	public boolean intersects(Polygon polygon) {
-		return polygon.intersects(polygon);
+		return this.polygon.intersects(polygon);
 	}
 
 	@Override
@@ -261,7 +261,7 @@ public class Rectangle extends Shape implements
 	 * @see Parallelogram#contains(Parallelogram)
 	 */
 	public boolean contains(Rectangle rectangle) {
-		throw new NotYetImplementedException();
+		return this.polygon.contains(rectangle.polygon);
 	}
 
 	@Override
@@ -461,6 +461,14 @@ public class Rectangle extends Shape implements
 	 */
 	public float getMaxY() {
 		return polygon.getMaxY();
+	}
+	
+	/**
+	 * Returns the vertices that make up this {@link Rectangle}
+	 * @return
+	 */
+	public float [] getVertices() {
+		return polygon.getVertices();
 	}
 
 	@Override

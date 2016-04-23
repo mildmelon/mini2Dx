@@ -251,6 +251,11 @@ public class Circle extends Shape {
 		public float getPointBY() {
 			return circle.y;
 		}
+
+		@Override
+		public LineSegment getEdgeLineSegment() {
+			return null;
+		}
 	}
 
 	@Override

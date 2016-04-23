@@ -36,6 +36,7 @@ public class Polygon extends Shape {
 	private int totalSidesCache = -1;
 	private int minXIndex, minYIndex, maxXIndex, maxYIndex;
 	private ShortArray triangles;
+	private float trackedRotation = 0f;
 
 	/**
 	 * Constructor
@@ -94,6 +95,10 @@ public class Polygon extends Shape {
 		this.maxXIndex = maxXIndex;
 		this.maxYIndex = maxYIndex;
 	}
+	
+	public boolean contains(Polygon polygon) {
+		return org.mini2Dx.core.geom.Intersector.containsPolygon(this, polygon);
+	}
 
 	/**
 	 * Returns if this {@link Polygon} intersects another
@@ -103,7 +108,18 @@ public class Polygon extends Shape {
 	 * @return True if the two {@link Polygon}s intersect
 	 */
 	public boolean intersects(Polygon polygon) {
-		return Intersector.intersectPolygons(this.polygon, polygon.polygon, null);
+		boolean result = false;
+		
+		internalEdgeIterator.begin();
+		while(internalEdgeIterator.hasNext()) {
+			internalEdgeIterator.next();
+			if(polygon.intersects(internalEdgeIterator.getEdgeLineSegment())) {
+				result = true;
+				break;
+			}
+		}
+		internalEdgeIterator.end();
+		return result;
 	}
 
 	/**
@@ -146,14 +162,14 @@ public class Polygon extends Shape {
 
 	@Override
 	public boolean intersectsLineSegment(Vector2 pointA, Vector2 pointB) {
-		return Intersector.intersectLinePolygon(pointA, pointB, polygon);
+		return Intersector.intersectSegmentPolygon(pointA, pointB, polygon);
 	}
 	
 	@Override
 	public boolean intersectsLineSegment(float x1, float y1, float x2, float y2) {
 		tmp1.set(x1, y1);
 		tmp2.set(x2, y2);
-		return Intersector.intersectLinePolygon(tmp1, tmp2, polygon);
+		return Intersector.intersectSegmentPolygon(tmp1, tmp2, polygon);
 	}
 
 	@Override
@@ -312,36 +328,41 @@ public class Polygon extends Shape {
 
 	@Override
 	public float getRotation() {
-		return polygon.getRotation();
+		return trackedRotation;
 	}
 
 	@Override
 	public void setRotation(float degrees) {
-		setRotationAround(polygon.getVertices()[0], polygon.getVertices()[1], degrees);
+		setRotationAround(polygon.getTransformedVertices()[0], polygon.getTransformedVertices()[1], degrees);
 	}
 
 	@Override
 	public void rotate(float degrees) {
-		
-		polygon.rotate(degrees);
-		calculateMinMaxXY(polygon.getTransformedVertices());
-		computeTriangles(polygon.getTransformedVertices());
+		rotateAround(polygon.getTransformedVertices()[0], polygon.getTransformedVertices()[1], degrees);
 	}
 	
 	@Override
 	public void setRotationAround(float centerX, float centerY, float degrees) {
-		if (degrees == polygon.getRotation()) {
-			return;
-		}
+		polygon.setVertices(polygon.getTransformedVertices());
 		polygon.setOrigin(centerX, centerY);
-		polygon.setRotation(degrees);
+		polygon.setRotation(degrees - trackedRotation);
+		trackedRotation = degrees;
+		
 		calculateMinMaxXY(polygon.getTransformedVertices());
 		computeTriangles(polygon.getTransformedVertices());
 	}
 
 	@Override
 	public void rotateAround(float centerX, float centerY, float degrees) {
+		trackedRotation += degrees;
+		float [] vertices = polygon.getTransformedVertices();
+		polygon.setRotation(0);
+		polygon.setOrigin(centerX, centerY);
+		polygon.setVertices(vertices);
+		polygon.rotate(degrees);
 		
+		calculateMinMaxXY(polygon.getTransformedVertices());
+		computeTriangles(polygon.getTransformedVertices());
 	}
 
 	/**
@@ -460,32 +481,64 @@ public class Polygon extends Shape {
 
 	@Override
 	public void setX(float x) {
-		polygon.setOrigin(x, polygon.getY());
-		polygon.setPosition(x, polygon.getY());
-		calculateMinMaxXY(polygon.getTransformedVertices());
-		computeTriangles(polygon.getTransformedVertices());
+		float [] vertices = polygon.getTransformedVertices();
+		float xDiff = x - getX();
+		
+		for(int i = 0; i < vertices.length; i += 2) {
+			vertices[i] += xDiff;
+		}
+		polygon.setOrigin(x, getY());
+		polygon.setVertices(vertices);
+		
+		calculateMinMaxXY(vertices);
+		computeTriangles(vertices);
 	}
 
 	@Override
 	public void setY(float y) {
-		polygon.setOrigin(polygon.getX(), y);
-		polygon.setPosition(polygon.getX(), y);
-		calculateMinMaxXY(polygon.getTransformedVertices());
-		computeTriangles(polygon.getTransformedVertices());
+		float [] vertices = polygon.getTransformedVertices();
+		float yDiff = y - getY();
+		
+		for(int i = 1; i < vertices.length; i += 2) {
+			vertices[i] += yDiff;
+		}
+		polygon.setOrigin(getX(), y);
+		polygon.setVertices(vertices);
+		
+		calculateMinMaxXY(vertices);
+		computeTriangles(vertices);
 	}
 
 	@Override
 	public void set(float x, float y) {
-		polygon.setPosition(x, y);
-		calculateMinMaxXY(polygon.getTransformedVertices());
-		computeTriangles(polygon.getTransformedVertices());
+		float [] vertices = polygon.getTransformedVertices();
+		float xDiff = x - getX();
+		float yDiff = y - getY();
+		
+		for(int i = 0; i < vertices.length; i += 2) {
+			vertices[i] += xDiff;
+			vertices[i + 1] += yDiff;
+		}
+		polygon.setOrigin(x, y);
+		polygon.setVertices(vertices);
+		
+		calculateMinMaxXY(vertices);
+		computeTriangles(vertices);
 	}
 
 	@Override
 	public void translate(float translateX, float translateY) {
-		polygon.translate(translateX, translateY);
-		calculateMinMaxXY(polygon.getTransformedVertices());
-		computeTriangles(polygon.getTransformedVertices());
+		float [] vertices = polygon.getTransformedVertices();
+		
+		for(int i = 0; i < vertices.length; i += 2) {
+			vertices[i] += translateX;
+			vertices[i + 1] += translateY;
+		}
+		polygon.setOrigin(vertices[0], vertices[1]);
+		polygon.setVertices(vertices);
+		
+		calculateMinMaxXY(vertices);
+		computeTriangles(vertices);
 	}
 
 	@Override
@@ -508,6 +561,7 @@ public class Polygon extends Shape {
 
 	private class PolygonEdgeIterator extends EdgeIterator {
 		private int edge = 0;
+		private LineSegment edgeLineSegment = new LineSegment(0f, 0f, 1f, 1f);
 
 		@Override
 		protected void beginIteration() {
@@ -524,6 +578,10 @@ public class Polygon extends Shape {
 				throw new MdxException("No more edges remaining. Make sure to call end()");
 			}
 			edge++;
+			if (!hasNext()) {
+				return;
+			}
+			edgeLineSegment.set(getPointAX(), getPointAY(), getPointBX(), getPointBY());
 		}
 
 		@Override
@@ -567,6 +625,11 @@ public class Polygon extends Shape {
 				return polygon.getTransformedVertices()[1];
 			}
 			return polygon.getTransformedVertices()[((edge + 1) * 2) + 1];
+		}
+
+		@Override
+		public LineSegment getEdgeLineSegment() {
+			return edgeLineSegment;
 		}
 
 	}

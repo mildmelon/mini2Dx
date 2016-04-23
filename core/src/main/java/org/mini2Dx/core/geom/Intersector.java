@@ -131,4 +131,38 @@ public class Intersector {
 
 		return closestX + closestY < circle.getRadius() * circle.getRadius();
 	}
+	
+	public static boolean intersectPolygons(Polygon p1, Polygon p2) {
+		float [] polygonB = p2.getVertices();
+		
+		boolean atLeastOnePointInside = false;
+		boolean atLeastOnePointOutside = false;
+		
+		for(int i = 0; i < polygonB.length; i += 2) {
+			if(p1.contains(polygonB[i], polygonB[i + 1])) {
+				atLeastOnePointInside = true;
+			} else {
+				atLeastOnePointOutside = true;
+			}
+			if(!atLeastOnePointInside) {
+				continue;
+			}
+			if(!atLeastOnePointOutside) {
+				continue;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean containsPolygon(Polygon p1, Polygon p2) {
+		float [] polygonB = p2.getVertices();
+		
+		for(int i = 0; i < polygonB.length; i += 2) {
+			if(!p1.contains(polygonB[i], polygonB[i + 1])) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
