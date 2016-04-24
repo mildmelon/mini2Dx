@@ -225,6 +225,17 @@ public class RectangleTest {
 		Assert.assertEquals(true, rectangle1.intersects(new LineSegment(33f, 33f, 32f, 32f)));
 		Assert.assertEquals(true, rectangle1.intersects(new LineSegment(32f, 32f, 33f, 33f)));
 	}
+	
+	@Test
+	public void testIntersectsCircle() {
+		rectangle1 = new Rectangle(0f, 0f, 50f, 50f);
+		
+		Circle intersectingCircle = new Circle(75f, 75f, 50f);
+		Circle nonIntersectingCircle = new Circle(500f, 500f, 50f);
+		
+		Assert.assertEquals(true, rectangle1.intersects(intersectingCircle));
+		Assert.assertEquals(false, rectangle1.intersects(nonIntersectingCircle));
+	}
 
 	@Test
 	public void testIntersectsRectangle() {

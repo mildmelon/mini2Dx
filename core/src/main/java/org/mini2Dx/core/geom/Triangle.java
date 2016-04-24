@@ -22,7 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Triangle extends Shape {
 	private static final int TOTAL_SIDES = 3;
 
-	private final Polygon polygon;
+	final Polygon polygon;
 
 	public Triangle(Point p1, Point p2, Point p3) {
 		this(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY());
@@ -63,7 +63,7 @@ public class Triangle extends Shape {
 	 * @return True if this {@link Triangle} and {@link Rectangle} intersect
 	 */
 	public boolean intersects(Rectangle rectangle) {
-		return rectangle.intersects(polygon);
+		return polygon.intersects(rectangle);
 	}
 
 	public void translate(float translateX, float translateY) {

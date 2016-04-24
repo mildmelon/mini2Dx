@@ -27,9 +27,9 @@ public class Rectangle extends Shape implements
 	private static final long serialVersionUID = 4016090439885217620L;
 	
 	final Polygon polygon;
-	
 	private float width, height;
-
+	private Rectangle tmp = null;
+	
 	/**
 	 * Default constructor. Creates a {@link Rectangle} at 0,0 with a width and
 	 * height of 1
@@ -173,7 +173,19 @@ public class Rectangle extends Shape implements
 	 * @return True if the {@link Rectangle}s intersect
 	 */
 	public boolean intersects(Rectangle rectangle) {
-		return polygon.intersects(rectangle);
+		boolean xAxisOverlaps = true;
+		boolean yAxisOverlaps = true;
+
+		if (polygon.getMaxX() < rectangle.getMinX())
+			xAxisOverlaps = false;
+		if (rectangle.getMaxX() < polygon.getMinX())
+			xAxisOverlaps = false;
+		if (polygon.getMaxY() < rectangle.getMinY())
+			yAxisOverlaps = false;
+		if (rectangle.getMaxY() < polygon.getMinY())
+			yAxisOverlaps = false;
+
+		return xAxisOverlaps && yAxisOverlaps;
 	}
 
 	/**
@@ -181,15 +193,16 @@ public class Rectangle extends Shape implements
 	 */
 	@Override
 	public boolean intersects(Parallelogram parallelogram) {
-		if (parallelogram instanceof Rectangle) {
-			return intersects((Rectangle) parallelogram);
-		} else {
-			Rectangle rect = new Rectangle(parallelogram.getX(),
+		if(tmp == null) {
+			tmp = new Rectangle(parallelogram.getX(),
 					parallelogram.getY(), parallelogram.getWidth(),
 					parallelogram.getHeight());
-			rect.rotate(parallelogram.getRotation());
-			return intersects(rect);
+		} else {
+			tmp.set(parallelogram.getX(),
+					parallelogram.getY(), parallelogram.getWidth(),
+					parallelogram.getHeight());
 		}
+		return intersects(tmp);
 	}
 
 	/**
@@ -197,8 +210,12 @@ public class Rectangle extends Shape implements
 	 */
 	@Override
 	public boolean intersects(float x, float y, float width, float height) {
-		Rectangle rect = new Rectangle(x, y, width, height);
-		return intersects(rect);
+		if(tmp == null) {
+			tmp = new Rectangle(x, y, width, height);
+		} else {
+			tmp.set(x, y, width, height);
+		}
+		return intersects(tmp);
 	}
 	
 	/**
@@ -207,7 +224,7 @@ public class Rectangle extends Shape implements
 	 * @return True if this {@link Rectangle} and the {@link Triangle} intersect
 	 */
 	public boolean intersects(Triangle triangle) {
-		return triangle.intersects(this);
+		return polygon.intersects(triangle);
 	}
 	
 	/**
@@ -271,22 +288,7 @@ public class Rectangle extends Shape implements
 
 	@Override
 	public boolean contains(Vector2 point) {
-		return contains(point.x, point.y);
-	}
-
-	private boolean triangleContains(float x, float y, Point p1, Point p2,
-			Point p3) {
-		boolean b1, b2, b3;
-
-		b1 = sign(x, y, p1, p2) < 0.0f;
-		b2 = sign(x, y, p2, p3) < 0.0f;
-		b3 = sign(x, y, p3, p1) < 0.0f;
-
-		return ((b1 == b2) && (b2 == b3));
-	}
-
-	private float sign(float x, float y, Point p1, Point p2) {
-		return (x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (y - p2.y);
+		return polygon.contains(point);
 	}
 
 	/**
