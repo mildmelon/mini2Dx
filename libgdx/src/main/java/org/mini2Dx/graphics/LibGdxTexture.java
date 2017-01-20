@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 See AUTHORS file
+ * Copyright (c) 2017 See AUTHORS file
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -9,95 +9,53 @@
  * Neither the name of the mini2Dx nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.mini2Dx.core.graphics;
+package org.mini2Dx.graphics;
 
-import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.graphics.Texture;
+import org.mini2Dx.core.graphics.TextureRegion;
 
 /**
- * An instance of {@link ParticleEffect} that can be returned to a
- * {@link ParticleEffectPool} for re-use.
+ *
  */
-public class PooledParticleEffect implements ParticleEffect {
-	private final ParticleEffectPool pool;
-	private final ParticleEffect effect;
+public class LibGdxTexture implements Texture {
+	private com.badlogic.gdx.graphics.Texture texture;
 
-	public PooledParticleEffect(ParticleEffectPool pool, ParticleEffect effect) {
-		super();
-		this.effect = effect;
-		this.pool = pool;
-	}
-
-	public void dispose() {
-		pool.free(this);
+	@Override
+	public int getWidth() {
+		return texture.getWidth();
 	}
 
 	@Override
-	public void update(GameContainer gc, float delta) {
-		effect.update(gc, delta);
+	public int getHeight() {
+		return texture.getHeight();
 	}
 
 	@Override
-	public void interpolate(GameContainer gc, float alpha) {
-		effect.interpolate(gc, alpha);
+	public int getDepth() {
+		return texture.getDepth();
+	}
+	
+	@Override
+	public TextureRegion createTextureRegion() {
+		return new LibGdxTextureRegion(this);
 	}
 
 	@Override
-	public void render(Graphics g) {
-		effect.render(g);
+	public TextureRegion createTextureRegion(int width, int height) {
+		return new LibGdxTextureRegion(this, width, height);
 	}
 
 	@Override
-	public void scaleEffect(float scaleFactor) {
-		effect.scaleEffect(scaleFactor);
+	public TextureRegion createTextureRegion(int x, int y, int width, int height) {
+		return new LibGdxTextureRegion(this, x, y, width, height);
 	}
 
 	@Override
-	public void start() {
-		effect.start();
+	public TextureRegion createTextureRegion(float u, float v, float u2, float v2) {
+		return new LibGdxTextureRegion(this, u, v, u2, v2);
 	}
-
-	@Override
-	public void reset() {
-		effect.reset();
-	}
-
-	@Override
-	public boolean isComplete() {
-		return effect.isComplete();
-	}
-
-	@Override
-	public void setDuration(int duration) {
-		effect.setDuration(duration);
-	}
-
-	@Override
-	public void setPosition(float x, float y) {
-		effect.setPosition(x, y);
-	}
-
-	@Override
-	public void setFlip(boolean flipX, boolean flipY) {
-		effect.setFlip(flipX, flipY);
-	}
-
-	@Override
-	public void flipX() {
-		effect.flipX();
-	}
-
-	@Override
-	public void flipY() {
-		effect.flipY();
-	}
-
-	@Override
-	public boolean isFlipX() {
-		return effect.isFlipX();
-	}
-
-	@Override
-	public boolean isFlipY() {
-		return effect.isFlipY();
+	
+	public com.badlogic.gdx.graphics.Texture getBackingTexture() {
+		return texture;
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 See AUTHORS file
+q * Copyright (c) 2015 See AUTHORS file
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.core.graphics;
 
-import com.badlogic.gdx.utils.Pool;
+import org.mini2Dx.gdx.utils.Pool;
 
 /**
  * Creates a pool of {@link PooledParticleEffect} instances for improved performance

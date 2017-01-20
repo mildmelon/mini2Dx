@@ -20,9 +20,8 @@ import org.mini2Dx.core.engine.PositionChangeListener;
 import org.mini2Dx.core.engine.Positionable;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.geom.Point;
-
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.MathUtils;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * An implementation of {@link Point} that allows for interpolation. Game

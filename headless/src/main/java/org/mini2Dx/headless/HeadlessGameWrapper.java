@@ -15,10 +15,10 @@ import org.mini2Dx.core.Mdx;
 import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.game.GameWrapper;
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.core.graphics.HeadlessGraphics;
 import org.mini2Dx.desktop.di.DesktopDependencyInjection;
 import org.mini2Dx.desktop.playerdata.DesktopPlayerData;
 import org.mini2Dx.desktop.serialization.DesktopXmlSerializer;
+import org.mini2Dx.graphics.HeadlessGraphics;
 
 /**
  * Headless implementation of {@link GameWrapper}

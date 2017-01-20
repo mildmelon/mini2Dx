@@ -12,7 +12,7 @@
 package org.mini2Dx.core.game;
 
 import org.mini2Dx.core.graphics.Graphics;
-import org.mini2Dx.core.graphics.LibGdxGraphics;
+import org.mini2Dx.graphics.LibGdxGraphics;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;

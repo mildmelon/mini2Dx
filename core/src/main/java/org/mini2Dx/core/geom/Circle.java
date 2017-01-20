@@ -13,10 +13,8 @@ package org.mini2Dx.core.geom;
 
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.util.EdgeIterator;
-
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.MathUtils;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * Implements a circle
@@ -30,7 +28,7 @@ public class Circle extends Shape {
 	private final Rectangle boundingBox = new Rectangle();
 	
 	private final CircleEdgeIterator edgeIterator = new CircleEdgeIterator();
-	final com.badlogic.gdx.math.Circle circle;
+	final org.mini2Dx.gdx.math.Circle circle;
 	
 	private boolean dirty = true;
 
@@ -49,7 +47,7 @@ public class Circle extends Shape {
 	 * @param radius The radius
 	 */
 	public Circle(float centerX, float centerY, float radius) {
-		this.circle = new com.badlogic.gdx.math.Circle(centerX, centerY, radius);
+		this.circle = new org.mini2Dx.gdx.math.Circle(centerX, centerY, radius);
 	}
 	
 	/**
@@ -57,7 +55,7 @@ public class Circle extends Shape {
 	 * @param circle The {@link Circle} to copy
 	 */
 	public Circle(Circle circle) {
-		this.circle = new com.badlogic.gdx.math.Circle(circle.circle);
+		this.circle = new org.mini2Dx.gdx.math.Circle(circle.circle);
 	}
 	
 	@Override
@@ -159,7 +157,7 @@ public class Circle extends Shape {
 	@Override
 	public boolean intersectsLineSegment(Vector2 pointA, Vector2 pointB) {
 		centerTmp.set(circle.x, circle.y);
-		return Intersector.intersectSegmentCircle(pointA, pointB, centerTmp, circle.radius * circle.radius);
+		return org.mini2Dx.gdx.math.Intersector.intersectSegmentCircle(pointA, pointB, centerTmp, circle.radius * circle.radius);
 	}
 
 	@Override
@@ -167,7 +165,7 @@ public class Circle extends Shape {
 		tmp1.set(x1, y1);
 		tmp2.set(x2, y2);
 		centerTmp.set(circle.x, circle.y);
-		return Intersector.intersectSegmentCircle(tmp1, tmp2, centerTmp, circle.radius * circle.radius);
+		return org.mini2Dx.gdx.math.Intersector.intersectSegmentCircle(tmp1, tmp2, centerTmp, circle.radius * circle.radius);
 	}
 	
 	/**

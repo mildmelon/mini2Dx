@@ -15,8 +15,7 @@ import org.mini2Dx.core.engine.Positionable;
 import org.mini2Dx.core.engine.Sizeable;
 import org.mini2Dx.core.geom.LineSegment;
 import org.mini2Dx.core.geom.Shape;
-
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * Common interface for collision detection {@link Shape}s

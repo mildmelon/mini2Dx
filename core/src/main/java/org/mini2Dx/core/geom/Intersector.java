@@ -11,8 +11,8 @@
  */
 package org.mini2Dx.core.geom;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.FloatArray;
+import org.mini2Dx.gdx.math.Vector2;
+import org.mini2Dx.gdx.utils.FloatArray;
 
 /**
  * Provides implementations for detecting intersections between geom package

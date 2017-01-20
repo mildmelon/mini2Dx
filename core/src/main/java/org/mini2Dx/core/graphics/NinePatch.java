@@ -60,7 +60,7 @@ public class NinePatch {
 	 *            Pixels from bottom edge.
 	 */
 	public NinePatch(Texture texture, int left, int right, int top, int bottom) {
-		this(new TextureRegion(texture), left, right, top, bottom);
+		this(texture.createTextureRegion(), left, right, top, bottom);
 	}
 
 	/**
@@ -86,27 +86,27 @@ public class NinePatch {
 		TextureRegion[] patches = new TextureRegion[9];
 		if (top > 0) {
 			if (left > 0)
-				patches[BOTTOM_LEFT] = new TextureRegion(region, 0, 0, left, top);
+				patches[BOTTOM_LEFT] = region.createTextureRegion(0, 0, left, top);
 			if (middleWidth > 0)
-				patches[BOTTOM_CENTER] = new TextureRegion(region, left, 0, middleWidth, top);
+				patches[BOTTOM_CENTER] = region.createTextureRegion(left, 0, middleWidth, top);
 			if (right > 0)
-				patches[BOTTOM_RIGHT] = new TextureRegion(region, left + middleWidth, 0, right, top);
+				patches[BOTTOM_RIGHT] = region.createTextureRegion(left + middleWidth, 0, right, top);
 		}
 		if (middleHeight > 0) {
 			if (left > 0)
-				patches[MIDDLE_LEFT] = new TextureRegion(region, 0, top, left, middleHeight);
+				patches[MIDDLE_LEFT] = region.createTextureRegion(0, top, left, middleHeight);
 			if (middleWidth > 0)
-				patches[MIDDLE_CENTER] = new TextureRegion(region, left, top, middleWidth, middleHeight);
+				patches[MIDDLE_CENTER] = region.createTextureRegion(left, top, middleWidth, middleHeight);
 			if (right > 0)
-				patches[MIDDLE_RIGHT] = new TextureRegion(region, left + middleWidth, top, right, middleHeight);
+				patches[MIDDLE_RIGHT] = region.createTextureRegion(left + middleWidth, top, right, middleHeight);
 		}
 		if (bottom > 0) {
 			if (left > 0)
-				patches[TOP_LEFT] = new TextureRegion(region, 0, top + middleHeight, left, bottom);
+				patches[TOP_LEFT] = region.createTextureRegion(0, top + middleHeight, left, bottom);
 			if (middleWidth > 0)
-				patches[TOP_CENTER] = new TextureRegion(region, left, top + middleHeight, middleWidth, bottom);
+				patches[TOP_CENTER] = region.createTextureRegion(left, top + middleHeight, middleWidth, bottom);
 			if (right > 0)
-				patches[TOP_RIGHT] = new TextureRegion(region, left + middleWidth, top + middleHeight, right, bottom);
+				patches[TOP_RIGHT] = region.createTextureRegion(left + middleWidth, top + middleHeight, right, bottom);
 		}
 
 		// If split only vertical, move splits from right to center.
@@ -225,8 +225,8 @@ public class NinePatch {
 
 	private int add(TextureRegion region, float color, boolean isStretchW, boolean isStretchH) {
 		if (texture == null)
-			texture = region.getTexture();
-		else if (texture != region.getTexture()) //
+			texture = region.getBackingTexture();
+		else if (texture != region.getBackingTexture()) //
 			throw new IllegalArgumentException("All regions must be from the same texture.");
 
 		region.flip(false, true);

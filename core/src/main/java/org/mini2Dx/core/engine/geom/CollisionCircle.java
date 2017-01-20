@@ -24,8 +24,7 @@ import org.mini2Dx.core.game.GameContainer;
 import org.mini2Dx.core.geom.Circle;
 import org.mini2Dx.core.geom.Shape;
 import org.mini2Dx.core.graphics.Graphics;
-
-import com.badlogic.gdx.math.MathUtils;
+import org.mini2Dx.gdx.math.MathUtils;
 
 /**
  * An implementation of {@link Circle} that allows for interpolation. Game

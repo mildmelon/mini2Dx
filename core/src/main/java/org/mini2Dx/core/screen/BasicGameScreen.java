@@ -11,8 +11,6 @@
  */
 package org.mini2Dx.core.screen;
 
-import com.badlogic.gdx.Gdx;
-
 /**
  * A basic implementation of {@link GameScreen} for quick setup
  */
@@ -24,12 +22,10 @@ public abstract class BasicGameScreen implements GameScreen {
 	
 	@Override
 	public void onPause() {
-		Gdx.app.log("INFO", "Game window paused");
 	}
 
 	@Override
 	public void onResume() {
-		Gdx.app.log("INFO", "Game window resumed");
 	}
 
 	@Override

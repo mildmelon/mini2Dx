@@ -11,8 +11,8 @@
  */
 package org.mini2Dx.core.geom;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.MathUtils;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * Extends {@link Vector2} with some utility methods

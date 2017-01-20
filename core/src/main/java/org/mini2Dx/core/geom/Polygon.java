@@ -17,11 +17,10 @@ import java.util.Arrays;
 import org.mini2Dx.core.exception.MdxException;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.util.EdgeIterator;
-
-import com.badlogic.gdx.math.EarClippingTriangulator;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ShortArray;
+import org.mini2Dx.gdx.math.EarClippingTriangulator;
+import org.mini2Dx.gdx.math.MathUtils;
+import org.mini2Dx.gdx.math.Vector2;
+import org.mini2Dx.gdx.utils.ShortArray;
 
 /**
  * Implements a rotatable polygon. Adds extra functionality to the default
@@ -323,10 +322,10 @@ public class Polygon extends Shape {
 
 	@Override
 	public float getDistanceTo(float x, float y) {
-		float result = com.badlogic.gdx.math.Intersector.distanceSegmentPoint(vertices[vertices.length - 2],
+		float result = org.mini2Dx.gdx.math.Intersector.distanceSegmentPoint(vertices[vertices.length - 2],
 				vertices[vertices.length - 1], vertices[0], vertices[1], x, y);
 		for (int i = 0; i < vertices.length - 2; i += 2) {
-			float distance = com.badlogic.gdx.math.Intersector.distanceSegmentPoint(vertices[i], vertices[i + 1],
+			float distance = org.mini2Dx.gdx.math.Intersector.distanceSegmentPoint(vertices[i], vertices[i + 1],
 					vertices[i + 2], vertices[i + 3], x, y);
 			if (distance < result) {
 				result = distance;

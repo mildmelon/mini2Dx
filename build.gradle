@@ -31,8 +31,8 @@ if(project.hasProperty('ossrhUser') && project.hasProperty("release")) {
 
 ext {
 	nativesLoaderVersion="1.0.0"
-	gdxVersion="1.9.4"
-	roboVMVersion="2.2.0"
+	gdxVersion="1.9.5"
+	roboVMVersion="2.3.0"
 	androidVersion="4.4"
 	beanutilsVersion="1.8.3"
 	langVersion="3.1"
@@ -155,14 +155,12 @@ project(":" + rootProject.name + "-core") {
     apply plugin: "me.champeau.gradle.jmh"
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-        
+		compile "org.mini2Dx:gdx-math:$gdxVersion"
+		compile "org.mini2Dx:gdx-collections:$gdxVersion"
+		
 		compile "org.mini2Dx:natives-loader:$nativesLoaderVersion"
         compile "org.apache.commons:commons-lang3:$langVersion"
         
-		testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         testCompile "junit:junit:$junitVersion"
 		testCompile "org.jmock:jmock-junit4:$jmockVersion"
 		testCompile "org.jmock:jmock-legacy:$jmockVersion"
@@ -178,11 +176,27 @@ project(":" + rootProject.name + "-core") {
 	}
 }
 
+project(":" + rootProject.name + "-libgdx") {
+	description = "mini2Dx runtime based on libGDX"
+	
+	dependencies {
+		compile project(":" + rootProject.name + "-core")
+		compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+		compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+		compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+		
+		testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+		testCompile "junit:junit:$junitVersion"
+		testCompile "org.jmock:jmock-junit4:$jmockVersion"
+		testCompile "org.jmock:jmock-legacy:$jmockVersion"
+	}
+}
+
 project(":" + rootProject.name + "-desktop") {
 	description = "mini2Dx desktop runtime"
 	
     dependencies {
-    	compile project(":" + rootProject.name + "-core")
+    	compile project(":" + rootProject.name + "-libgdx")
     	
     	compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
@@ -312,7 +326,7 @@ if (hasAndroidSdk()) {
 		description = "mini2Dx Android runtime"
 		
 		dependencies {
-			compile project(":" + rootProject.name + "-core")
+			compile project(":" + rootProject.name + "-libgdx")
 			compile files(fileTree(dir: 'libs', includes: ['*.jar']))
 			compile "org.mini2Dx:android-beans:$androidBeansVersion"
 			
@@ -376,7 +390,7 @@ if (Os.isFamily(Os.FAMILY_MAC)) {
 		description = "mini2Dx iOS runtime"
 	
 		dependencies {
-			compile project(":" + rootProject.name + "-core")
+			compile project(":" + rootProject.name + "-libgdx")
 			
 			compile "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
         	compile "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"

@@ -11,8 +11,10 @@
  */
 package org.mini2Dx.core;
 
+import org.mini2Dx.core.assets.Assets;
 import org.mini2Dx.core.controller.ControllerMapping;
 import org.mini2Dx.core.di.DependencyInjection;
+import org.mini2Dx.core.graphics.Texture;
 import org.mini2Dx.core.playerdata.PlayerData;
 import org.mini2Dx.core.serialization.JsonSerializer;
 import org.mini2Dx.core.serialization.XmlSerializer;
@@ -23,6 +25,11 @@ import org.mini2Dx.natives.OsInformation;
  * Mini2Dx utility classes
  */
 public class Mdx {
+	/**
+	 * Interface for loading and getting assets such as {@link Texture}s
+	 */
+	public static Assets assets;
+	
 	/**
 	 * Provides access to controller mappings
 	 */
@@ -42,6 +49,11 @@ public class Mdx {
 	 * Returns the current operating system. See <a href="https://github.com/mini2Dx/natives-loader">natives-loader project</a> for more javadocs
 	 */
 	public static Os os = OsInformation.getOs();
+	
+	/**
+	 * Returns the current runtime implementation
+	 */
+	public static MdxRuntime runtime;
 	
 	/**
 	 * JSON serialization
