@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.core.controller;
 
-import com.badlogic.gdx.controllers.ControllerListener;
+import org.mini2Dx.gdx.controllers.ControllerListener;
 
 /**
  * Common interface for mini2Dx controller implementations

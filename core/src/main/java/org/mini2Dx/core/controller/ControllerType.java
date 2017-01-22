@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.core.controller;
 
-import com.badlogic.gdx.controllers.Controller;
+import org.mini2Dx.gdx.controllers.Controller;
 
 /**
  * {@link Controller} types supported by mini2Dx

@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.core.controller.deadzone;
 
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * Implements a radius-based dead zone - suitable for free-form movement. See

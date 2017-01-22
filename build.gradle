@@ -32,6 +32,7 @@ if(project.hasProperty('ossrhUser') && project.hasProperty("release")) {
 ext {
 	nativesLoaderVersion="1.0.0"
 	gdxVersion="1.9.5"
+	gdxFixVersion="$gdxVersion" + ".1"
 	roboVMVersion="2.3.0"
 	androidVersion="4.4"
 	beanutilsVersion="1.8.3"
@@ -155,8 +156,9 @@ project(":" + rootProject.name + "-core") {
     apply plugin: "me.champeau.gradle.jmh"
 
     dependencies {
+		compile "org.mini2Dx:gdx-audio:$gdxFixVersion"
+		compile "org.mini2Dx:gdx-input:$gdxFixVersion"
 		compile "org.mini2Dx:gdx-math:$gdxVersion"
-		compile "org.mini2Dx:gdx-collections:$gdxVersion"
 		
 		compile "org.mini2Dx:natives-loader:$nativesLoaderVersion"
         compile "org.apache.commons:commons-lang3:$langVersion"

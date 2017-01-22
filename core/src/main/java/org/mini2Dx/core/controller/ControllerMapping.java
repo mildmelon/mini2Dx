@@ -20,15 +20,14 @@ import org.mini2Dx.core.controller.xboxone.LinuxXboxOneController;
 import org.mini2Dx.core.controller.xboxone.MacXboxOneController;
 import org.mini2Dx.core.controller.xboxone.WindowsXboxOneController;
 import org.mini2Dx.core.exception.ControllerPlatformException;
+import org.mini2Dx.gdx.controllers.Controller;
 import org.mini2Dx.natives.Os;
-
-import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.mappings.Ouya;
 
 /**
  * Provides mappings to common {@link Controller}s based on the current {@link Os}
  */
 public class ControllerMapping {
+	private static final String OUYA_ID = "OUYA Game Controller";
 	
 	public static Xbox360Controller xbox360(Controller controller) throws ControllerPlatformException {
 		return xbox360(controller, null, null);
@@ -95,7 +94,7 @@ public class ControllerMapping {
 	}
 
 	public static ControllerType getControllerType(Controller controller) {
-		if(controller.getName().equals(Ouya.ID)) {
+		if(controller.getName().equals(OUYA_ID)) {
 			return ControllerType.OUYA;
 		}
 		if(controller.getName().toLowerCase().contains(XboxOneController.ID)) {

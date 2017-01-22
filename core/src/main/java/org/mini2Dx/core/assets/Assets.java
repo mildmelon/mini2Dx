@@ -16,4 +16,17 @@ package org.mini2Dx.core.assets;
  */
 public interface Assets {
 
+	public <T> void queueForLoading(String path, Class<T> clazz);
+	
+	public void queueAllForLoading(AssetsData assetsData);
+	
+	public void queueForUnloading(String path);
+	
+	public boolean update();
+	
+	public float getLoadingProgress();
+	
+	public <T> T get(String path);
+	
+	public <T> T get(String path, Class<T> clazz);
 }

@@ -18,8 +18,7 @@ import org.mini2Dx.core.controller.button.XboxOneButton;
 import org.mini2Dx.core.controller.deadzone.DeadZone;
 import org.mini2Dx.core.controller.deadzone.NoopDeadZone;
 import org.mini2Dx.core.controller.xboxone.XboxOneControllerListener;
-
-import com.badlogic.gdx.controllers.Controller;
+import org.mini2Dx.gdx.controllers.Controller;
 
 /**
  * Base class for Xbox One controller implementations

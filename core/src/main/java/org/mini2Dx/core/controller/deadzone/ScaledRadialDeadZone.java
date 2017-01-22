@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.core.controller.deadzone;
 
-import com.badlogic.gdx.math.Vector2;
+import org.mini2Dx.gdx.math.Vector2;
 
 /**
  * Implements a scaling radius-based dead zone. High-precision version of

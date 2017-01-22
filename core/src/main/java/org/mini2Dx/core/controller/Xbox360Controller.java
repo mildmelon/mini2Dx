@@ -18,8 +18,7 @@ import org.mini2Dx.core.controller.button.Xbox360Button;
 import org.mini2Dx.core.controller.deadzone.DeadZone;
 import org.mini2Dx.core.controller.deadzone.NoopDeadZone;
 import org.mini2Dx.core.controller.xbox360.Xbox360ControllerListener;
-
-import com.badlogic.gdx.controllers.Controller;
+import org.mini2Dx.gdx.controllers.Controller;
 
 /**
  * Base class for Xbox 360 controller implementations

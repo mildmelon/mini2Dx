@@ -11,7 +11,7 @@
  */
 package org.mini2Dx.uats.util;
 
-import org.mini2Dx.core.assets.FallbackFileHandleResolver;
+import org.mini2Dx.assets.FallbackFileHandleResolver;
 import org.mini2Dx.core.controller.MdxController;
 import org.mini2Dx.core.game.ScreenBasedGame;
 import org.mini2Dx.uats.BlendingUAT;
