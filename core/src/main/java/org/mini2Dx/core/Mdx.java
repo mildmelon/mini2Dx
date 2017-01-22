@@ -14,8 +14,9 @@ package org.mini2Dx.core;
 import org.mini2Dx.core.assets.Assets;
 import org.mini2Dx.core.controller.ControllerMapping;
 import org.mini2Dx.core.di.DependencyInjection;
+import org.mini2Dx.core.files.ExternalGameData;
+import org.mini2Dx.core.files.PlayerData;
 import org.mini2Dx.core.graphics.Texture;
-import org.mini2Dx.core.playerdata.PlayerData;
 import org.mini2Dx.core.serialization.JsonSerializer;
 import org.mini2Dx.core.serialization.XmlSerializer;
 import org.mini2Dx.natives.Os;
@@ -41,6 +42,11 @@ public class Mdx {
 	public static PlayerData playerData;
 	
 	/**
+	 * Interface for reading/writing external game data, e.g. DLC, mods, etc.
+	 */
+	public static ExternalGameData externalGameData;
+	
+	/**
 	 * Dependency injection
 	 */
 	public static DependencyInjection di;
@@ -58,7 +64,7 @@ public class Mdx {
 	/**
 	 * JSON serialization
 	 */
-	public static JsonSerializer json = new JsonSerializer();
+	public static JsonSerializer json;
 	
 	/**
 	 * XML serialization

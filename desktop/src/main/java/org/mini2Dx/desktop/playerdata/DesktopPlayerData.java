@@ -16,8 +16,8 @@ import java.io.StringWriter;
 import java.nio.file.Paths;
 
 import org.mini2Dx.core.Mdx;
-import org.mini2Dx.core.playerdata.PlayerData;
-import org.mini2Dx.core.playerdata.PlayerDataException;
+import org.mini2Dx.core.files.PlayerData;
+import org.mini2Dx.core.files.FileStorageException;
 import org.mini2Dx.core.serialization.SerializationException;
 import org.mini2Dx.natives.OsInformation;
 
@@ -62,24 +62,24 @@ public class DesktopPlayerData implements PlayerData {
 
 	@Override
 	public <T> T readXml(Class<T> clazz, String... filepath)
-			throws PlayerDataException {
+			throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			return Mdx.xml.fromXml(new InputStreamReader(resolve(filepath)
 					.read()), clazz);
 		} catch (SerializationException e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 
 	}
 
 	@Override
 	public <T> void writeXml(T object, String... filepath)
-			throws PlayerDataException {
+			throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			ensureDirectoryExistsForFile(filepath);
@@ -88,69 +88,69 @@ public class DesktopPlayerData implements PlayerData {
 			resolve(filepath).writeString(writer.toString(), false);
 			writer.flush();
 		} catch (SerializationException e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 
 	}
 
 	@Override
 	public <T> T readJson(Class<T> clazz, String... filepath)
-			throws PlayerDataException {
+			throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			return Mdx.json.fromJson(resolve(filepath).readString(), clazz);
 		} catch (SerializationException e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 
 	}
 
 	@Override
 	public <T> void writeJson(T object, String... filepath)
-			throws PlayerDataException {
+			throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			resolve(filepath).writeString(Mdx.json.toJson(object), false);
 		} catch (SerializationException e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 	}
 	
 	@Override
-	public String readString(String... filepath) throws PlayerDataException {
+	public String readString(String... filepath) throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			FileHandle file = resolve(filepath);
 			return file.readString();
 		} catch (Exception e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 	}
 
 	@Override
 	public void writeString(String content, String... filepath)
-			throws PlayerDataException {
+			throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		try {
 			FileHandle file = resolve(filepath);
 			file.writeString(content, false);
 		} catch (Exception e) {
-			throw new PlayerDataException(e);
+			throw new FileStorageException(e);
 		}
 	}
 
 	@Override
-	public boolean delete(String... path) throws PlayerDataException {
+	public boolean delete(String... path) throws FileStorageException {
 		if (path.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		FileHandle file = resolve(path);
 		if(file.isDirectory()) {
@@ -160,9 +160,9 @@ public class DesktopPlayerData implements PlayerData {
 	}
 
 	@Override
-	public boolean hasFile(String... filepath) throws PlayerDataException {
+	public boolean hasFile(String... filepath) throws FileStorageException {
 		if (filepath.length == 0) {
-			throw new PlayerDataException("No file path specified");
+			throw new FileStorageException("No file path specified");
 		}
 		FileHandle file = resolve(filepath);
 		if (file.exists()) {
@@ -172,9 +172,9 @@ public class DesktopPlayerData implements PlayerData {
 	}
 
 	@Override
-	public boolean hasDirectory(String... path) throws PlayerDataException {
+	public boolean hasDirectory(String... path) throws FileStorageException {
 		if (path.length == 0) {
-			throw new PlayerDataException("No path specified");
+			throw new FileStorageException("No path specified");
 		}
 		FileHandle directoryHandle = resolve(path);
 		if (directoryHandle.exists()) {
@@ -184,9 +184,9 @@ public class DesktopPlayerData implements PlayerData {
 	}
 
 	@Override
-	public void createDirectory(String... path) throws PlayerDataException {
+	public void createDirectory(String... path) throws FileStorageException {
 		if (path.length == 0) {
-			throw new PlayerDataException("No path specified");
+			throw new FileStorageException("No path specified");
 		}
 		FileHandle directory = resolve(path);
 		if (directory.exists()) {
@@ -197,7 +197,7 @@ public class DesktopPlayerData implements PlayerData {
 	}
 
 	@Override
-	public void wipe() throws PlayerDataException {
+	public void wipe() throws FileStorageException {
 		FileHandle directory = Gdx.files.absolute(saveDirectory);
 		if (!directory.exists()) {
 			return;

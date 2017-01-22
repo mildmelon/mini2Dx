@@ -9,20 +9,31 @@
  * Neither the name of the mini2Dx nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.mini2Dx.core.playerdata;
+package org.mini2Dx.core.files;
 
+import org.mini2Dx.core.serialization.annotation.Field;
 
 /**
- * Thrown when an error occurs during {@link PlayerData} operations
+ * Common interface for reading/writing player data, e.g. game saves, preferences,
+ * etc.
+ * 
+ * The location to save data in is automatically determined by the game
+ * identifier and the current platform. All files/directories specified by the
+ * developer will be automatically placed inside the pre-determined data
+ * location.
+ * 
+ * Note: Objects must use {@link Field} annotations to be
+ * serialized/deserialized properly
  */
-public class PlayerDataException extends Exception {
-	private static final long serialVersionUID = 1489776657559713023L;
+public interface PlayerData extends FileStorage {
 
-	public PlayerDataException(String message) {
-		super(message);
-	}
-	
-	public PlayerDataException(Exception exception) {
-		super(exception.getMessage(), exception);
-	}
+
+    /**
+     * Wipes all data within the game data location
+     * 
+     * @throws FileStorageException
+     *             Thrown if the game data location cannot be accessed or the
+     *             data could not be wiped
+     */
+    public void wipe() throws FileStorageException;
 }
