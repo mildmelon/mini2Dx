@@ -42,7 +42,7 @@ public class AnimationTest {
 				will(returnValue(1f));
 				exactly(5).of(sprite).getOriginY();
 				will(returnValue(1f));
-				exactly(1).of(sprite).getColor();
+				exactly(1).of(sprite).getTint();
 				will(returnValue(Color.WHITE));
 			}
 		});

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 See AUTHORS file
+ * Copyright (c) 2017 See AUTHORS file
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -11,6 +11,87 @@
  */
 package org.mini2Dx.core.graphics;
 
-public interface Sprite {
+import org.mini2Dx.core.geom.Rectangle;
 
+public interface Sprite extends TextureRegion {
+
+	public void drawTo(SpriteBatch<?, ?> spriteBatch);
+
+	public void drawTo(SpriteBatch<?, ?> spriteBatch, float alphaModulation);
+
+	public float getX();
+	
+	public void setX(float x);
+
+	public float getY();
+	
+	public void setY(float y);
+	
+	public void setPosition(float x, float y);
+
+	public float getWidth();
+
+	public float getHeight();
+	
+	public void setSize(float width, float height);
+
+	public Rectangle getBounds();
+	
+	public void setBounds(float x, float y, float width, float height);
+	
+	public float[] getVertices();
+	
+	public float getAlpha();
+	
+	public void setAlpha(float a);
+
+	public float getOriginX();
+
+	public float getOriginY();
+	
+	public void setOrigin(float originX, float originY);
+
+	public void setOriginCenter();
+
+	public float getScaleX();
+
+	public float getScaleY();
+	
+	public void setScale(float scaleXY);
+
+	public void setScale(float scaleX, float scaleY);
+
+	public void scale(float amount);
+	
+	public float getRotation();
+	
+	public void setRotation(float degrees);
+
+	public void rotate(float degrees);
+
+	public void rotate90(boolean clockwise);
+
+	public Color getTint();
+	
+	public void setTint(Color tint);
+
+	public void setTint(float r, float g, float b, float a);
+
+	public void setTint(float color);
+
+	public void scroll(float xAmount, float yAmount);
+	
+	public void centerXOn(float x);
+
+	public void centerYOn(float y);
+
+	public void centerOn(float x, float y);
+
+	public void translateX(float xAmount);
+
+	public void translateY(float yAmount);
+
+	public void translate(float xAmount, float yAmount);
+	
+	public void set(Sprite sprite);
 }

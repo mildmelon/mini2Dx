@@ -15,10 +15,6 @@
  ******************************************************************************/
 package org.mini2Dx.core.graphics;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-
 /**
  * Modified version of {@link com.badlogic.gdx.graphics.g2d.NinePatch}
  */
@@ -42,7 +38,7 @@ public class NinePatch {
 	private float leftWidth, rightWidth, middleWidth, middleHeight, topHeight, bottomHeight;
 	private float[] vertices = new float[9 * 4 * 5];
 	private int idx;
-	private final Color color = new Color(Color.WHITE);
+	private final Color color = new Color(Colors.WHITE);
 	private float paddingLeft = -1, paddingRight = -1, paddingTop = -1, paddingBottom = -1;
 
 	/**
@@ -167,7 +163,7 @@ public class NinePatch {
 	}
 
 	private void load(TextureRegion[] patches) {
-		final float color = Color.WHITE.toFloatBits(); // placeholder color,
+		final float color = Colors.WHITE.toFloatBits(); // placeholder color,
 														// overwritten at draw
 														// time
 
@@ -301,12 +297,12 @@ public class NinePatch {
 		g.drawNinePatch(this, x, y, width, height);
 	}
 
-	void draw(Batch batch, float x, float y, float width, float height) {
+	void draw(SpriteBatch<?, ?> batch, float x, float y, float width, float height) {
 		final float centerColumnX = x + leftWidth;
 		final float rightColumnX = x + width - rightWidth;
 		final float middleRowY = y + bottomHeight;
 		final float topRowY = y + height - topHeight;
-		final float c = tmpDrawColor.set(color).mul(batch.getColor()).toFloatBits();
+		final float c = tmpDrawColor.set(color).multiply(batch.getTint()).toFloatBits();
 
 		if (bottomLeft != -1)
 			set(bottomLeft, x, y, centerColumnX - x, middleRowY - y, c);

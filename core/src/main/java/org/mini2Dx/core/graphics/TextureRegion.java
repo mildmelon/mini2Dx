@@ -47,12 +47,16 @@ public interface TextureRegion {
 	public int getRegionHeight();
 
 	public void setRegionHeight(int height);
-
-	public void flip(boolean x, boolean y);
+	
+	public void setRegion(int x, int y, int width, int height);
 
 	public boolean isFlipX();
 
 	public boolean isFlipY();
+	
+	public void flip(boolean x, boolean y);
+	
+	public void setFlip(boolean flipX, boolean flipY);
 
 	public Texture getBackingTexture();
 

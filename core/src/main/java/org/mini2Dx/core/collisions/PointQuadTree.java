@@ -17,13 +17,11 @@ import java.util.List;
 
 import org.mini2Dx.core.engine.Positionable;
 import org.mini2Dx.core.geom.LineSegment;
-import org.mini2Dx.core.geom.Parallelogram;
 import org.mini2Dx.core.geom.Point;
 import org.mini2Dx.core.geom.Rectangle;
 import org.mini2Dx.core.geom.Shape;
+import org.mini2Dx.core.graphics.Color;
 import org.mini2Dx.core.graphics.Graphics;
-
-import com.badlogic.gdx.graphics.Color;
 
 /**
  * Implements a point quadtree

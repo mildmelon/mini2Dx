@@ -12,12 +12,10 @@
 package org.mini2Dx.core.screen.transition;
 
 import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.graphics.Color;
 import org.mini2Dx.core.graphics.Graphics;
 import org.mini2Dx.core.screen.GameScreen;
 import org.mini2Dx.core.screen.Transition;
-import org.mini2Dx.core.util.ColorUtils;
-
-import com.badlogic.gdx.graphics.Color;
 
 /**
  * Implements a fade out transition
@@ -32,7 +30,7 @@ public class FadeOutTransition implements Transition {
 	 * Default constructor - fade to black in 0.5 seconds
 	 */
 	public FadeOutTransition() {
-		this(ColorUtils.rgbToColor("1,1,1"));
+		this(Color.rgbToColor("1,1,1"));
 	}
 
 	/**

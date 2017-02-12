@@ -14,8 +14,6 @@ package org.mini2Dx.core.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.Color;
-
 /**
  * Implements an animation with frames of variable or fixed duration
  */
@@ -28,7 +26,7 @@ public class Animation<T extends Sprite> {
 	private float rotation;
 	private float originX;
 	private float originY;
-	private Color color;
+	private Color tint;
 	private boolean flipX;
 	private boolean flipY;
 
@@ -54,8 +52,8 @@ public class Animation<T extends Sprite> {
 	public void addFrame(T frame, float duration) {
 		durations.add(duration);
 		frames.add(frame);
-		if(color == null)
-			color = frame.getColor();
+		if(tint == null)
+			tint = frame.getTint();
 		originX = frame.getOriginX();
 		originY = frame.getOriginY();
 	}
@@ -119,7 +117,7 @@ public class Animation<T extends Sprite> {
 		T sprite = getCurrentFrame();
 		sprite.setOrigin(originX, originY);
 		sprite.setRotation(rotation);
-		sprite.setColor(color);
+		sprite.setTint(tint);
 		sprite.setFlip(flipX, !flipY);
 		g.drawSprite(sprite);
 		sprite.setRotation(0f);
@@ -142,7 +140,7 @@ public class Animation<T extends Sprite> {
 		T sprite = getCurrentFrame();
 		sprite.setOrigin(originX, originY);
 		sprite.setRotation(rotation);
-		sprite.setColor(color);
+		sprite.setTint(tint);
 		sprite.setFlip(flipX, !flipY);
 		g.drawSprite(sprite, x, y);
 		sprite.setRotation(0f);
@@ -233,18 +231,18 @@ public class Animation<T extends Sprite> {
 	 * Returns the {@link Color} tint applied to each frame
 	 * @return
 	 */
-	public Color getColor() {
-		return color;
+	public Color getTint() {
+		return tint;
 	}
 
 	/**
 	 * Sets the {@link Color} tint applied to each frame
 	 * @param color
 	 */
-	public void setColor(Color color) {
+	public void setTint(Color color) {
 		if(color == null)
 			return;
-		this.color = color;
+		this.tint = color;
 	}
 	
 	/**
@@ -255,10 +253,10 @@ public class Animation<T extends Sprite> {
 	 * @param a The alpha value (0f - 1f)
 	 */
 	public void setColor(float r, float g, float b, float a) {
-		if(color == null) {
-			color = new Color(r, g, b, a);
+		if(tint == null) {
+			tint = new Color(r, g, b, a);
 		} else {
-			color.set(r, g, b, a);
+			tint.set(r, g, b, a);
 		}
 	}
 

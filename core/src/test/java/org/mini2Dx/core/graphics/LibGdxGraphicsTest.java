@@ -54,7 +54,7 @@ public class LibGdxGraphicsTest {
 				will(returnValue(800));
 				one(gdxGraphics).getHeight();
 				will(returnValue(600));
-				one(spriteBatch).getColor();
+				one(spriteBatch).getTint();
 				will(returnValue(null));
 			}
 		});

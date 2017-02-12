@@ -361,14 +361,6 @@ public interface Graphics {
 	public void drawSpriteCache(SpriteCache spriteCache, int cacheId);
 
 	/**
-	 * Draws an instance of a LibGDX {@link Stage}
-	 * 
-	 * @param stage
-	 *            The {@link Stage} to be drawn to screen
-	 */
-	public void drawStage(Stage stage);
-
-	/**
 	 * Draws a {@link ParticleEffect} or {@link PooledParticleEffect} to screen
 	 * 
 	 * @param effect

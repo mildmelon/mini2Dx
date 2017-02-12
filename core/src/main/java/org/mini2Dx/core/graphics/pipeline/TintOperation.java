@@ -12,9 +12,8 @@
 package org.mini2Dx.core.graphics.pipeline;
 
 import org.mini2Dx.core.game.GameContainer;
+import org.mini2Dx.core.graphics.Color;
 import org.mini2Dx.core.graphics.Graphics;
-
-import com.badlogic.gdx.graphics.Color;
 
 /**
  * Applies/unapplies {@link Graphics#setTint(Color)}. This class must be
